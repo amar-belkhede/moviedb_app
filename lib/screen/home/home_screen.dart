@@ -32,9 +32,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<MovieProvider>(context, listen: false);
-    provider.getMovie(query: "spider", page: 1);
-
     return Scaffold(
       appBar: moviedbAppBar(),
       body: Container(
@@ -84,14 +81,14 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           IconButton(
-                            onPressed: provider.previousMoviePage,
+                            onPressed: movieProvider.previousMoviePage,
                             icon: const Icon(
                               Icons.arrow_back,
                               color: DbAppTheme.greyWhite,
                             ),
                           ),
                           IconButton(
-                            onPressed: provider.nextMoviePage,
+                            onPressed: movieProvider.nextMoviePage,
                             icon: const Icon(
                               Icons.arrow_forward,
                               color: DbAppTheme.greyWhite,
