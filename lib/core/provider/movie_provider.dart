@@ -8,6 +8,11 @@ import 'package:moviedb_app/core/model/pagination_result.dart';
 import 'package:moviedb_app/core/service/api_moviedb.dart';
 
 class MovieProvider extends ChangeNotifier {
+  
+  MovieProvider() {
+    getMovie(query: 'Spider man', page: 1);
+  }
+
   final ApiMoviedb api = ApiMoviedb();
 
   String _query = '';

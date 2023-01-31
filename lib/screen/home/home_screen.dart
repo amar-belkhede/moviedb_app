@@ -25,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    Future.delayed(Duration(seconds: 2))
+    Future.delayed(const Duration(seconds: 2))
         .then((value) => {FlutterNativeSplash.remove()});
     super.initState();
   }
