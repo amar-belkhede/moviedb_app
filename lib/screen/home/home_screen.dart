@@ -40,47 +40,49 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           children: [
             SearchBar(formKey: _formKey),
-            Consumer<MovieProvider>(builder: (context, movieProvider, child) {
-              if (movieProvider.loading) {
+            Consumer<MovieProvider>(
+              builder: (context, movieProvider, child) {
+                if (movieProvider.loading) {
+                  return Expanded(
+                    child: home_message(
+                      message: 'Loading...',
+                      loading: true,
+                    ),
+                  );
+                }
+
+                if (movieProvider.getMovieList.isEmpty) {
+                  return Expanded(
+                    child: home_message(message: 'Empty'),
+                  );
+                }
+
                 return Expanded(
-                  child: home_message(
-                    message: 'Loading...',
-                    loading: true,
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: GridView.builder(
+                          gridDelegate:
+                              const SliverGridDelegateWithMaxCrossAxisExtent(
+                            maxCrossAxisExtent: 200,
+                            childAspectRatio: 2 / 3,
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 10,
+                          ),
+                          itemCount: movieProvider.getMovieList.length,
+                          itemBuilder: (BuildContext ctx, index) {
+                            return MovieCard(
+                              movie: movieProvider.getMovieList[index],
+                            );
+                          },
+                        ),
+                      ),
+                      const home_pagination(),
+                    ],
                   ),
                 );
-              }
-
-              if (movieProvider.getMovieList.isEmpty) {
-                return Expanded(
-                  child: home_message(message: 'Empty'),
-                );
-              }
-
-              return Expanded(
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: GridView.builder(
-                        gridDelegate:
-                            const SliverGridDelegateWithMaxCrossAxisExtent(
-                          maxCrossAxisExtent: 200,
-                          childAspectRatio: 2 / 3,
-                          crossAxisSpacing: 10,
-                          mainAxisSpacing: 10,
-                        ),
-                        itemCount: movieProvider.getMovieList.length,
-                        itemBuilder: (BuildContext ctx, index) {
-                          return MovieCard(
-                            movie: movieProvider.getMovieList[index],
-                          );
-                        },
-                      ),
-                    ),
-                    home_pagination(provider: movieProvider),
-                  ],
-                ),
-              );
-            }),
+              },
+            ),
           ],
         ),
       ),
