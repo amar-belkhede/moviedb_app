@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:moviedb_app/core/provider/movie_provider.dart';
 import 'package:moviedb_app/core/theme/app_theme.dart';
 import 'package:moviedb_app/screen/home/component/home_message.dart';
+import 'package:moviedb_app/screen/home/component/home_pagination.dart';
 import 'package:moviedb_app/screen/home/component/moviecard/movie_card.dart';
 import 'package:moviedb_app/screen/common/moviedb_app_bar.dart';
 import 'package:moviedb_app/screen/home/component/search_bar.dart';
@@ -75,28 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          IconButton(
-                            onPressed: movieProvider.previousMoviePage,
-                            icon: const Icon(
-                              Icons.arrow_back,
-                              color: DbAppTheme.greyWhite,
-                            ),
-                          ),
-                          IconButton(
-                            onPressed: movieProvider.nextMoviePage,
-                            icon: const Icon(
-                              Icons.arrow_forward,
-                              color: DbAppTheme.greyWhite,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
+                    home_pagination(provider: movieProvider),
                   ],
                 ),
               );
