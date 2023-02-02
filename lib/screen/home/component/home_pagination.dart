@@ -10,30 +10,35 @@ class home_pagination extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Future<void> pagination({bool next = false, bool prev = false}) async {
+      var provider = Provider.of<MovieProvider>(context, listen: false);
+      if (next) {
+        provider.nextMoviePage();
+      } else if (prev) {
+        provider.previousMoviePage();
+      }
+    }
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
-      child: Consumer<MovieProvider>(
-        builder: (context, movieProvider, child) {
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              IconButton(
-                onPressed: movieProvider.previousMoviePage,
-                icon: const Icon(
-                  Icons.arrow_back,
-                  color: DbAppTheme.greyWhite,
-                ),
-              ),
-              IconButton(
-                onPressed: movieProvider.nextMoviePage,
-                icon: const Icon(
-                  Icons.arrow_forward,
-                  color: DbAppTheme.greyWhite,
-                ),
-              )
-            ],
-          );
-        },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          IconButton(
+            onPressed: () => pagination(prev: true),
+            icon: const Icon(
+              Icons.arrow_back,
+              color: DbAppTheme.greyWhite,
+            ),
+          ),
+          IconButton(
+            onPressed: () => pagination(next: true),
+            icon: const Icon(
+              Icons.arrow_forward,
+              color: DbAppTheme.greyWhite,
+            ),
+          )
+        ],
       ),
     );
   }
